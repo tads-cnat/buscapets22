@@ -1,24 +1,28 @@
-# Título do Projeto
+# Buscapets
 
->Testando um template para servir de base para o PDS
+![buscapet](https://user-images.githubusercontent.com/48931095/143683762-55da4a19-c7c1-4acb-9f7b-2e824360db08.jpeg)
 
-<img src="logo.png" width="200" height="200" />
-
->Inserir uma logo para o projeto
-
->Inserir pequena descrição do projeto
+> O Buscapets é um site que procura reunir pessoas que perderam seus pets e pessoas que estejam dispostas a encontrá-los por solidariedade. Como também, pessoas interessadas em adotar. Sendo assim, uma forma de centralizar um nicho disposto a ajudar mutuamente.
 
 # Tecnologias Utilizadas
 
->Enumerar as tecnoligas utilzadas no projeto
+>Javascript, usando o framework NodeJS e NextJS, e como base de dados, MySQL
 
+# Pré-Requisitos
+- Sistema de controle de versões `git` ( https://www.git-scm.com/ )
+- Instalação do Node  ( https://nodejs.org/en/download/ )
 
+### Clonar o repositório
+
+Para realizar um clone do projeto, execute:
+
+```sh
+git clone https://github.com/tads-cnat/buscapets.git
+cd buscapets
+```
 # Instalação
-
->Descrever os comandos iniciais para começar a colaborar com o desenvolvimento do projeto
-
-
 
 # Documentação
 
->Link para os documentos do projeto
+>
+Verifique o diretório [`docs`](./docs/) para a documentação do sistema
