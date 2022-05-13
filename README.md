@@ -17,8 +17,8 @@
 Para realizar um clone do projeto, execute:
 
 ```sh
-git clone https://github.com/tads-cnat/buscapets.git
-cd buscapets
+git clone https://github.com/tads-cnat/buscapets22.git
+cd buscapets22
 ```
 # Instalação
 
