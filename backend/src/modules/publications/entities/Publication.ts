@@ -32,7 +32,7 @@ class Publication implements IPublication {
   @Column({type: "geometry"})
   last_location: IGeometry
 
-  @OneToMany(() => Comment, comment => comment.publication)
+  @OneToMany(() => Comment, comment => comment.publication_id)
   comments: Comment[]
 
   @CreateDateColumn()
