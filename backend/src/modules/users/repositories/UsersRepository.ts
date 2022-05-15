@@ -1,11 +1,12 @@
 import User from "../entities/User";
-import { EntityRepository, getRepository, Repository } from "typeorm";
+import { EntityRepository, getRepository, Like, Repository } from "typeorm";
 import { IUser } from "../models/IUser";
 import { ICreateUser } from "../models/ICreateUser";
 import { IListUsers } from "../models/IListUsers";
 import { IFindById } from "../models/IFindById";
 import AppError from "@shared/errors/AppErrors";
 import { ISoftDelete } from "../models/ISoftDelete";
+import { IFindByName } from "../models/IFindByName";
 
 @EntityRepository(User)
 export default class UsersRepository{
@@ -31,6 +32,16 @@ export default class UsersRepository{
     if (!user) {
       throw new AppError('User not found');
     }
+
+    return user
+  }
+
+  public async findByName({ name }: IFindByName): Promise<IUser[]> {
+    const user = await this.ormRepository.find({
+      where: {
+        name: Like(`%${name}%`),
+      }
+    })
 
     return user
   }
