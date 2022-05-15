@@ -1,6 +1,6 @@
 import Publication from "../../publications/entities/Publication";
 import { Exclude } from "class-transformer";
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { IUser } from '../models/IUser'
 import Comment from "@modules/comments/entities/Comment";
 
@@ -16,15 +16,21 @@ class User implements IUser {
   @Column()
   email: string
 
-  @OneToMany(() => Publication, publication => publication.owner)
-  publications: Publication[]
-
-  @OneToMany(() => Comment, comment => comment.user)
-  comments: Comment[]
-
   @Column({select: false})
   @Exclude()
   password: string
+
+  @Column()
+  phone: string
+
+  @Column({default: 'user'})
+  role: string
+
+  @OneToMany(() => Publication, publication => publication.user_id)
+  publications: Publication[]
+
+  @OneToMany(() => Comment, comment => comment.user_id)
+  comments: Comment[]
 
   @CreateDateColumn()
   created_at: Date
