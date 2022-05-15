@@ -1,18 +1,18 @@
-import AppError from "@shared/errors/AppErrors";
 import { getCustomRepository } from "typeorm";
+import { ISoftDelete } from "../models/ISoftDelete";
 import UsersRepository from "../repositories/UsersRepository";
 
 class SoftDeleteUserService {
-  public async execute(id: string) {
+  public async execute({id}: ISoftDelete) {
     const usersRepository = getCustomRepository(UsersRepository);
 
-    const user = await usersRepository.findById(id)
-
-    if (!user) {
-      throw new AppError('User not found')
-    }
+    const user = await usersRepository.findById({
+      id
+    })
     
-    await usersRepository.softDelete(id)
+    await usersRepository.softDelete({
+      id: user.id
+    })
   }
 }
 
