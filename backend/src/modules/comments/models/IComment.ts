@@ -1,10 +1,8 @@
-import Publication from "@modules/publications/entities/Publication"
-import User from "@modules/users/entities/User"
-
 export interface IComment {
+  id: string
+  user_id: string
+  publication_id: string
   comment: string
-  user: User
-  publication: Publication
   created_at: Date
   updated_at: Date
   deleted_at: Date

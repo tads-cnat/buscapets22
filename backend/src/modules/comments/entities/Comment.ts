@@ -9,14 +9,14 @@ class Comment implements IComment {
   @PrimaryGeneratedColumn('uuid')
   id: string
 
-  @Column()
-  comment: string;
-
   @ManyToOne(() => User, user => user.comments)
-  user: User
+  user_id: string
 
   @ManyToOne(() => Publication, publication => publication.comments)
-  publication: Publication
+  publication_id: string
+
+  @Column()
+  comment: string;
 
   @CreateDateColumn()
   created_at: Date
