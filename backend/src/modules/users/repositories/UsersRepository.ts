@@ -3,6 +3,8 @@ import { EntityRepository, getRepository, Repository } from "typeorm";
 import { IUser } from "../models/IUser";
 import { ICreateUser } from "../models/ICreateUser";
 import { IListUsers } from "../models/IListUsers";
+import { IFindById } from "../models/IFindById";
+import AppError from "@shared/errors/AppErrors";
 
 @EntityRepository(User)
 export default class UsersRepository{
@@ -14,7 +16,7 @@ export default class UsersRepository{
   }
 
   public async findAll(): Promise<IListUsers> {
-    const users = await this.ormRepository.find({relations: ['publications']})
+    const users = await this.ormRepository.find()
 
     return {
       users,
@@ -22,13 +24,12 @@ export default class UsersRepository{
     }
   }
 
-  public async findById(id: string): Promise<IUser | undefined> {
-    const user = await this.ormRepository.findOne({
-      where: {
-        id,
-      },
-      relations: ['publications']
-    })
+  public async findById({id}: IFindById): Promise<IUser> {
+    const user = await this.ormRepository.findOne(id)
+
+    if (!user) {
+      throw new AppError('User not found');
+    }
 
     return user
   }

@@ -1,17 +1,13 @@
-import AppError from '@shared/errors/AppErrors';
 import { getCustomRepository } from 'typeorm';
+import { IFindById } from '../models/IFindById';
 import { IUser } from '../models/IUser';
 import UsersRepository from '../repositories/UsersRepository';
 
 class FindUserService {
-  public async execute(id: string): Promise<IUser> {
+  public async execute({id}: IFindById): Promise<IUser> {
     const usersRepository = getCustomRepository(UsersRepository);
     
-    const user = await usersRepository.findById(id);
-
-    if (!user) {
-      throw new AppError('User not found');
-    }
+    const user = await usersRepository.findById({id});
 
     return user
   }
