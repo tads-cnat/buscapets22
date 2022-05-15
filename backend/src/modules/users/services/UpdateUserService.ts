@@ -5,13 +5,14 @@ import { IUser } from "../models/IUser";
 import UsersRepository from "../repositories/UsersRepository";
 
 class UpdateUserService {
-  public async execute({ id, name, email }: IUpdateUser): Promise<IUser> {
+  public async execute({ id, name, email, phone }: IUpdateUser): Promise<IUser> {
     const usersRepository = getCustomRepository(UsersRepository);
 
-    const user = await usersRepository.findById(id)
+    const user = await usersRepository.findById({id})
 
-    if (!user) {
-      throw new AppError('User not found')
+    // if all fields are equal, return user. There is no need to update anything.
+    if (user.name === name && user.email === email && user.phone === phone) {
+      return user
     }
 
     if (email) {
@@ -24,6 +25,7 @@ class UpdateUserService {
 
     user.name = name
     user.email = email
+    user.phone = phone
 
     await usersRepository.save(user)
 
