@@ -61,10 +61,12 @@ export default class UsersController {
   public async softDelete(request: Request, response: Response) {
     const { id } = request.params
 
-    const deleteUser = new SoftDeleteUser()
+    const softDeleteUser = new SoftDeleteUser()
 
-    await deleteUser.execute(id)
+    await softDeleteUser.execute({
+      id
+    })
 
-    return response.json([])
+    return response.json(true)
   }
 }
