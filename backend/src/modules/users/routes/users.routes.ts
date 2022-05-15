@@ -57,9 +57,15 @@ usersRouter.delete(
 usersRouter.patch(
   '/:id', isAuthenticated,
   celebrate({
+    [Segments.PARAMS]: {
+      id: Joi.string().uuid().required(),
+    }
+  }),
+  celebrate({
     [Segments.BODY]: {
       name: Joi.string(),
       email: Joi.string().email(),
+      phone: Joi.string(),
     }
   }),
   usersController.update
