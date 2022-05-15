@@ -45,6 +45,16 @@ usersRouter.get(
 )
 
 usersRouter.get(
+  '/email',
+  celebrate({
+    [Segments.BODY]: {
+      email: Joi.string(),
+    }
+  }),
+  usersController.findEmail
+)
+
+usersRouter.get(
   '/:id', isAuthenticated,
   celebrate({
     [Segments.PARAMS]: {
