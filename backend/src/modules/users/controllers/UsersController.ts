@@ -1,6 +1,7 @@
 import { instanceToInstance } from "class-transformer";
 import { Request, Response } from "express";
 import CreateUserService from "../services/CreateUserService";
+import FindByEmailService from "../services/FindByEmailService";
 import FindByNameUserService from "../services/FindByNameUserService";
 import FindUserService from "../services/FindUserService";
 import ListUsersService from "../services/ListUsersService";
@@ -49,6 +50,18 @@ export default class UsersController {
 
     const users = await findNameUsers.execute({
       name
+    })
+
+    return response.json(instanceToInstance(users))
+  }
+
+  public async findEmail(request: Request, response: Response): Promise<Response> {
+    const {email} = request.body
+
+    const findEmailUsers = new FindByEmailService()
+
+    const users = await findEmailUsers.execute({
+      email
     })
 
     return response.json(instanceToInstance(users))
