@@ -8,8 +8,6 @@ const usersRouter = Router()
 const usersController = new UsersController()
 const sessionController = new SessionController()
 
-usersRouter.get('/', isAuthenticated, usersController.list)
-
 usersRouter.post(
   '/session',
   celebrate({
@@ -32,6 +30,18 @@ usersRouter.post(
     }
   }),
   usersController.create
+)
+
+usersRouter.get('/', isAuthenticated, usersController.list)
+
+usersRouter.get(
+  '/name',
+  celebrate({
+    [Segments.BODY]: {
+      name: Joi.string(),
+    }
+  }),
+  usersController.findName
 )
 
 usersRouter.get(
