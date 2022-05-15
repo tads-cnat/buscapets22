@@ -1,6 +1,7 @@
 import { instanceToInstance } from "class-transformer";
 import { Request, Response } from "express";
 import CreateUserService from "../services/CreateUserService";
+import FindByNameUserService from "../services/FindByNameUserService";
 import FindUserService from "../services/FindUserService";
 import ListUsersService from "../services/ListUsersService";
 import SoftDeleteUser from "../services/SoftDeleteUserService";
@@ -39,6 +40,18 @@ export default class UsersController {
     const user = await showUser.execute({id})
 
     return response.json(instanceToInstance(user))
+  }
+
+  public async findName(request: Request, response: Response): Promise<Response> {
+    const {name} = request.body
+
+    const findNameUsers = new FindByNameUserService()
+
+    const users = await findNameUsers.execute({
+      name
+    })
+
+    return response.json(instanceToInstance(users))
   }
 
   public async update(request: Request, response: Response): Promise<Response> {
