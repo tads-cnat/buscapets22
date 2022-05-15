@@ -38,13 +38,13 @@ export default class UsersRepository{
   }
 
   public async findByName({ name }: IFindByName): Promise<IUser[]> {
-    const user = await this.ormRepository.find({
+    const users = await this.ormRepository.find({
       where: {
         name: Like(`%${name}%`),
       }
     })
 
-    return user
+    return users
   }
 
   public async findByEmail({ email }: IFindByEmail): Promise<IUser[]> {
