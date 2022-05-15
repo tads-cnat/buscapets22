@@ -8,7 +8,7 @@ const usersRouter = Router()
 const usersController = new UsersController()
 const sessionController = new SessionController()
 
-usersRouter.get('/', isAuthenticated, usersController.index)
+usersRouter.get('/', isAuthenticated, usersController.list)
 
 usersRouter.post(
   '/session',

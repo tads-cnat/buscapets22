@@ -8,10 +8,10 @@ import UpdateUserService from "../services/UpdateUserService";
 
 export default class UsersController {
 
-  public async index(request: Request, response: Response): Promise<Response> {
-    const listUser = new ListUsersService()
+  public async list(request: Request, response: Response): Promise<Response> {
+    const listUsers = new ListUsersService()
 
-    const users = await listUser.execute()
+    const users = await listUsers.execute()
 
     return response.json(instanceToInstance(users))
   }
@@ -36,7 +36,7 @@ export default class UsersController {
 
     const showUser = new FindUserService()
 
-    const user = await showUser.execute(id)
+    const user = await showUser.execute({id})
 
     return response.json(instanceToInstance(user))
   }
