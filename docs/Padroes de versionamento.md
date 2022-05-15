@@ -26,7 +26,7 @@
   2.  É usado o git commit msg linter para padronizar os commits
   ```
   git add .
-  git commit -m "mensagem"
+  git commit -m "scope: mensagem"
   ```
   2. Para mandar a branch com os commits para o repositório
   ```
