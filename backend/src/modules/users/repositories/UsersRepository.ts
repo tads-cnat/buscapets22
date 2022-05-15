@@ -7,6 +7,7 @@ import { IFindById } from "../models/IFindById";
 import AppError from "@shared/errors/AppErrors";
 import { ISoftDelete } from "../models/ISoftDelete";
 import { IFindByName } from "../models/IFindByName";
+import { IFindByEmail } from "../models/IFindByEmail";
 
 @EntityRepository(User)
 export default class UsersRepository{
@@ -46,7 +47,7 @@ export default class UsersRepository{
     return user
   }
 
-  public async findByEmail(email: string): Promise<IUser | undefined> {
+  public async findByExactEmail({email}: IFindByEmail): Promise<IUser | undefined> {
     const user = await this.ormRepository.findOne({
       where: {
         email,
@@ -56,7 +57,7 @@ export default class UsersRepository{
     return user
   }
 
-  public async findByEmailForSession(email: string): Promise<IUser | undefined> {
+  public async findByEmailForSession({email}: IFindByEmail): Promise<IUser | undefined> {
     const user = await this.ormRepository.findOne({
       where: {
         email,

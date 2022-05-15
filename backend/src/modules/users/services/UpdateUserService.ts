@@ -16,7 +16,9 @@ class UpdateUserService {
     }
 
     if (email) {
-      const userExists = await usersRepository.findByEmail(email)
+      const userExists = await usersRepository.findByExactEmail({
+        email
+      })
 
       if (userExists && email !== user.email) {
         throw new AppError('There is already one user with this email ')

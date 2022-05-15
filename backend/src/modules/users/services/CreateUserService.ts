@@ -9,7 +9,9 @@ class CreateUserService {
   public async execute({ name, email, password, phone }: ICreateUser): Promise<IUser> {
     const usersRepository = getCustomRepository(UsersRepository);
     
-    const emailExists = await usersRepository.findByEmail(email);
+    const emailExists = await usersRepository.findByExactEmail({
+      email
+    });
 
     if (emailExists) {
       throw new AppError('Email address already used');
