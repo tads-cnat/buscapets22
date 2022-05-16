@@ -1,9 +1,9 @@
 import User from '../../users/entities/User';
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { IPublication } from "../models/IPublication";
 import Comment from '@modules/comments/entities/Comment';
-import { IGeometry } from '../models/IGeometry';
-
+import { GeometryTransformer } from '@shared/libs/transformers';
+import { Geometry } from 'geojson'
 
 @Entity('publications')
 class Publication implements IPublication {
@@ -29,8 +29,13 @@ class Publication implements IPublication {
   @Column()
   disappearance_date: Date
 
-  @Column({type: "geometry"})
-  last_location: IGeometry
+  @Column({
+    type: 'geometry',
+    spatialFeatureType: 'Point',
+    srid: 4326,
+    transformer: new GeometryTransformer(),
+  })
+  last_location: Geometry
 
   @OneToMany(() => Comment, comment => comment.publication_id)
   comments: Comment[]
