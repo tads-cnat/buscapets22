@@ -26,6 +26,10 @@ publicationsRouter.post(
     [Segments.BODY]: {
       title: Joi.string().required(),
       description: Joi.string().required(),
+      pet_name: Joi.string().required(),
+      gender: Joi.string().required(),
+      disappearance_date: Joi.date().required(),
+      last_location: Joi.array().length(2).items(Joi.number()).required(),
     }
   }),
   publicationController.create
