@@ -3,6 +3,8 @@ import { EntityRepository, getRepository, Repository } from "typeorm";
 import { IPublication } from "../models/IPublication";
 import { ICreatePublication } from "../models/ICreatePublication";
 import { IListPublications } from "../models/IListPublications";
+import { IFindById } from "../models/IFindById";
+import AppError from "@shared/errors/AppErrors";
 
 @EntityRepository(Publication)
 export default class PublicationRepository {
@@ -21,14 +23,18 @@ export default class PublicationRepository {
     } 
   }
 
-  public async findById(id: string): Promise<IPublication | undefined> {
-    const user = await this.ormRepository.findOne({
+  public async findById({id}: IFindById): Promise<IPublication> {
+    const publication = await this.ormRepository.findOne({
       where: {
         id,
       }
     })
 
-    return user
+    if (!publication) {
+      throw new AppError('Publication not found')
+    }
+
+    return publication
   }
 
   public async create({ 
