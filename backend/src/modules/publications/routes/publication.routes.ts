@@ -8,7 +8,7 @@ const publicationsRouter = Router()
 const publicationController = new PublicationsController()
 const commentController = new CommentsController()
 
-publicationsRouter.get('/', isAuthenticated, publicationController.index)
+publicationsRouter.get('/', isAuthenticated, publicationController.list)
 
 publicationsRouter.get(
   '/:id', isAuthenticated,
