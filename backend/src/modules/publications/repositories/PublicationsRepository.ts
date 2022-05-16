@@ -6,6 +6,7 @@ import { IListPublications } from "../models/IListPublications";
 import { IFindById } from "../models/IFindById";
 import AppError from "@shared/errors/AppErrors";
 import { IFindByTitle } from "../models/IFindByTitle";
+import { ISoftDelete } from "../models/ISoftDelete";
 
 @EntityRepository(Publication)
 export default class PublicationRepository {
@@ -76,7 +77,7 @@ export default class PublicationRepository {
     return publicationSaved
   }
 
-  public async softDelete(id: string) {
-    await this.ormRepository.softDelete(id)
+  public async softDelete({id}: ISoftDelete) {
+    return this.ormRepository.softDelete(id)
   }
 }
