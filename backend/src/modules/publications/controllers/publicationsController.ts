@@ -93,8 +93,10 @@ export default class PublicationsController {
 
     const deleteUser = new SoftDeletePublicationService()
 
-    await deleteUser.execute(id)
+    await deleteUser.execute({
+      id
+    })
 
-    return response.json([])
+    return response.json(true)
   }
 }
