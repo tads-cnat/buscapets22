@@ -1,10 +1,11 @@
 import Publication from "../entities/Publication";
-import { EntityRepository, getRepository, Repository } from "typeorm";
+import { EntityRepository, getRepository, Like, Repository } from "typeorm";
 import { IPublication } from "../models/IPublication";
 import { ICreatePublication } from "../models/ICreatePublication";
 import { IListPublications } from "../models/IListPublications";
 import { IFindById } from "../models/IFindById";
 import AppError from "@shared/errors/AppErrors";
+import { IFindByTitle } from "../models/IFindByTitle";
 
 @EntityRepository(Publication)
 export default class PublicationRepository {
@@ -35,6 +36,16 @@ export default class PublicationRepository {
     }
 
     return publication
+  }
+
+  public async findByTitle({ title }: IFindByTitle): Promise<IPublication[]> {
+    const publications = await this.ormRepository.find({
+      where: {
+        title: Like(`%${title}%`),
+      }
+    })
+
+    return publications
   }
 
   public async create({ 
