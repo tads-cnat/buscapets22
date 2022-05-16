@@ -21,7 +21,7 @@ export default class PublicationsController {
 
     const showPublication = new FindPublicationService()
 
-    const publication = await showPublication.execute(id)
+    const publication = await showPublication.execute({id})
 
     return response.json(instanceToInstance(publication))
   }
