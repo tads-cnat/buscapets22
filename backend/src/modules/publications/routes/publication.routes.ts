@@ -51,9 +51,16 @@ publicationsRouter.post(
 publicationsRouter.patch(
   '/:id', isAuthenticated,
   celebrate({
+    [Segments.PARAMS]: {
+      id: Joi.string().uuid().required(),
+    },
     [Segments.BODY]: {
       title: Joi.string(),
-      description: Joi.string()
+      description: Joi.string(),
+      pet_name: Joi.string(),
+      gender: Joi.string().valid("fêmea", "macho"),
+      disappearance_date: Joi.date(),
+      last_location: Joi.array().length(2).items(Joi.number()),
     }
   }),
   publicationController.update
