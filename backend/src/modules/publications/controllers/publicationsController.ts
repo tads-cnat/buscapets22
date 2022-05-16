@@ -1,4 +1,3 @@
-import FindUserService from "@modules/users/services/FindUserService";
 import { instanceToInstance } from "class-transformer";
 import { Request, Response } from "express";
 import CreatePublicationService from "../services/CreatePublicationService";
@@ -28,18 +27,25 @@ export default class PublicationsController {
   }
 
   public async create(request: Request, response: Response): Promise<Response> {
-    const { title, description } = request.body
+    const { 
+      title,
+      description,
+      pet_name,
+      gender,
+      disappearance_date,
+      last_location
+    } = request.body
 
     const createPublication = new CreatePublicationService()
 
-    const findUserById = new FindUserService()
-
-    const user = await findUserById.execute(request.user.id)
-
     const publication = await createPublication.execute({
+      user_id: request.user.id,
       title,
       description,
-      owner: user
+      pet_name,
+      gender,
+      disappearance_date,
+      last_location
     })
 
     return response.json(instanceToInstance(publication))
