@@ -52,17 +52,27 @@ export default class PublicationsController {
   }
 
   public async update(request: Request, response: Response): Promise<Response> {
-    const { title, description } = request.body
+    const {
+      title,
+      description,
+      pet_name,
+      gender,
+      disappearance_date,
+      last_location
+    } = request.body
     const { id } = request.params
 
     const updatePublication = new UpdatePublicationService()
 
-    const user = await updatePublication.update({
+    const user = await updatePublication.execute({
       id,
       title,
       description,
+      pet_name,
+      gender,
+      disappearance_date,
+      last_location
     })
-
 
     return response.json(user)
   }
