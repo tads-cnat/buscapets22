@@ -11,6 +11,16 @@ const commentController = new CommentsController()
 publicationsRouter.get('/', isAuthenticated, publicationController.list)
 
 publicationsRouter.get(
+  '/title', isAuthenticated,
+  celebrate({
+    [Segments.BODY]: {
+      title: Joi.string(),
+    }
+  }),
+  publicationController.findTitle
+)
+
+publicationsRouter.get(
   '/:id', isAuthenticated,
   celebrate({
     [Segments.PARAMS]: {
