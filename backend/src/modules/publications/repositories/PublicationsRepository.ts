@@ -11,26 +11,37 @@ export default class PublicationRepository {
     this.ormRepository = getRepository(Publication)
   }
 
-  public async findAll(): Promise<IPublication[] | undefined> {
-    return this.ormRepository.find({relations: ['owner', 'comments']})
+  public async findAll(): Promise<IPublication[]> {
+    return this.ormRepository.find()
   }
 
   public async findById(id: string): Promise<IPublication | undefined> {
     const user = await this.ormRepository.findOne({
       where: {
         id,
-      },
-      relations: ['owner']
+      }
     })
 
     return user
   }
 
-  public async create({ title, description, owner}: ICreatePublication): Promise<IPublication> {
+  public async create({ 
+    user_id,
+    title,
+    description,
+    pet_name,
+    gender,
+    disappearance_date,
+    last_location
+  }: ICreatePublication): Promise<IPublication> {
     const publication = this.ormRepository.create({
+      user_id,
       title,
       description,
-      owner
+      pet_name,
+      gender,
+      disappearance_date,
+      last_location
     })
 
     return publication
