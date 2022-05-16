@@ -2,6 +2,7 @@ import Publication from "../entities/Publication";
 import { EntityRepository, getRepository, Repository } from "typeorm";
 import { IPublication } from "../models/IPublication";
 import { ICreatePublication } from "../models/ICreatePublication";
+import { IListPublications } from "../models/IListPublications";
 
 @EntityRepository(Publication)
 export default class PublicationRepository {
@@ -11,8 +12,13 @@ export default class PublicationRepository {
     this.ormRepository = getRepository(Publication)
   }
 
-  public async findAll(): Promise<IPublication[]> {
-    return this.ormRepository.find()
+  public async findAll(): Promise<IListPublications> {
+    const publications = await this.ormRepository.find()
+
+    return {
+      publications,
+      count: publications.length
+    } 
   }
 
   public async findById(id: string): Promise<IPublication | undefined> {
