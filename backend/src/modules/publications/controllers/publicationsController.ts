@@ -1,6 +1,7 @@
 import { instanceToInstance } from "class-transformer";
 import { Request, Response } from "express";
 import CreatePublicationService from "../services/CreatePublicationService";
+import FindByTitlePublicationService from "../services/FindByTitlePublicationService";
 import FindPublicationService from "../services/FindPublicationService";
 import ListPublicationsService from "../services/ListPublicationsService";
 import SoftDeletePublicationService from "../services/SoftDeletePublicationService";
@@ -24,6 +25,18 @@ export default class PublicationsController {
     const publication = await showPublication.execute({id})
 
     return response.json(instanceToInstance(publication))
+  }
+
+  public async findTitle(request: Request, response: Response): Promise<Response> {
+    const { title } = request.body
+
+    console.log(title)
+
+    const findTitlePublication = new FindByTitlePublicationService()
+
+    const publications = await findTitlePublication.execute({title})
+
+    return response.json(instanceToInstance(publications))
   }
 
   public async create(request: Request, response: Response): Promise<Response> {
