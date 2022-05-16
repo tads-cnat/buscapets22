@@ -1,16 +1,14 @@
-import AppError from "@shared/errors/AppErrors";
 import { getCustomRepository } from "typeorm";
+import { IFindById } from "../models/IFindById";
 import { IPublication } from "../models/IPublication";
 import PublicationRepository from "../repositories/PublicationsRepository";
 
 class FindPublicationService {
-  public async execute(id: string): Promise<IPublication> {
+  public async execute({id}: IFindById): Promise<IPublication> {
     const publicationRespository = getCustomRepository(PublicationRepository)
-    const publication = await publicationRespository.findById(id)
-
-    if (!publication) {
-      throw new AppError('Publication not found')
-    }
+    const publication = await publicationRespository.findById({
+      id
+    })
 
     return publication
   }
