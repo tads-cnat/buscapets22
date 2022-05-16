@@ -30,8 +30,6 @@ export default class PublicationsController {
   public async findTitle(request: Request, response: Response): Promise<Response> {
     const { title } = request.body
 
-    console.log(title)
-
     const findTitlePublication = new FindByTitlePublicationService()
 
     const publications = await findTitlePublication.execute({title})
