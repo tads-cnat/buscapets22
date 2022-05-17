@@ -1,7 +1,9 @@
-import { IUser } from "@modules/users/models/IUser"
-
 export interface ICreatePublication {
+  user_id: string
   title: string
   description: string
-  owner: IUser
+  pet_name: string
+  gender: string
+  disappearance_date: Date
+  last_location: any
 }

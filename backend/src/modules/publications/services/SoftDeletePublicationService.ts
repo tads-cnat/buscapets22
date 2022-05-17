@@ -1,18 +1,19 @@
-import AppError from "@shared/errors/AppErrors";
 import { getCustomRepository } from "typeorm";
+import { ISoftDelete } from "../models/ISoftDelete";
 import PublicationRepository from '../repositories/PublicationsRepository';
 
 class SoftDeletePublicationService {
-  public async execute(id: string) {
+  public async execute({id}: ISoftDelete) {
     const publicationRepository = getCustomRepository(PublicationRepository);
 
-    const publication = await publicationRepository.findById(id)
-
-    if (!publication) {
-      throw new AppError('Publication not found')
-    }
+    const publication = await publicationRepository.findById({
+      id
+    })
     
-    await publicationRepository.softDelete(id)
+    // had to find publication any way to validate id
+    await publicationRepository.softDelete({
+      id: publication.id
+    })
   }
 }
 

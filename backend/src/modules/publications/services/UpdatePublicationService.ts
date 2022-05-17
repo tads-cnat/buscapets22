@@ -1,21 +1,34 @@
-import AppError from "@shared/errors/AppErrors";
 import { getCustomRepository } from "typeorm";
+import { Geometry } from 'geojson'
 import { IPublication } from "../models/IPublication";
 import { IUpdatePublication } from "../models/IUpdatePublication";
 import PublicationRepository from '../repositories/PublicationsRepository';
 
 class UpdatePublicationService {
-  public async update({id, title, description}: IUpdatePublication): Promise<IPublication | undefined> {
+  public async execute({
+    id,
+    title,
+    description,
+    pet_name,
+    gender,
+    disappearance_date,
+    last_location
+  }: IUpdatePublication): Promise<IPublication | undefined> {
     const publicationRespository = getCustomRepository(PublicationRepository)
 
-    const publication = await publicationRespository.findById(id)
+    const publication = await publicationRespository.findById({id})
 
-    if (!publication) {
-      throw new AppError('Publication not found')
-    }
+    const location: Geometry = {
+      type: 'Point',
+      coordinates: last_location
+   }
 
     publication.title = title
     publication.description = description
+    publication.pet_name = pet_name
+    publication.gender = gender
+    publication.disappearance_date = disappearance_date
+    publication.last_location = location
 
     await publicationRespository.save(publication)
 

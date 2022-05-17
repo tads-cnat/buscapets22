@@ -1,7 +1,12 @@
 import Publication from "../entities/Publication";
-import { EntityRepository, getRepository, Repository } from "typeorm";
+import { EntityRepository, getRepository, Like, Repository } from "typeorm";
 import { IPublication } from "../models/IPublication";
 import { ICreatePublication } from "../models/ICreatePublication";
+import { IListPublications } from "../models/IListPublications";
+import { IFindById } from "../models/IFindById";
+import AppError from "@shared/errors/AppErrors";
+import { IFindByTitle } from "../models/IFindByTitle";
+import { ISoftDelete } from "../models/ISoftDelete";
 
 @EntityRepository(Publication)
 export default class PublicationRepository {
@@ -11,26 +16,56 @@ export default class PublicationRepository {
     this.ormRepository = getRepository(Publication)
   }
 
-  public async findAll(): Promise<IPublication[] | undefined> {
-    return this.ormRepository.find({relations: ['owner', 'comments']})
+  public async findAll(): Promise<IListPublications> {
+    const publications = await this.ormRepository.find()
+
+    return {
+      publications,
+      count: publications.length
+    } 
   }
 
-  public async findById(id: string): Promise<IPublication | undefined> {
-    const user = await this.ormRepository.findOne({
+  public async findById({id}: IFindById): Promise<IPublication> {
+    const publication = await this.ormRepository.findOne({
       where: {
         id,
-      },
-      relations: ['owner']
+      }
     })
 
-    return user
+    if (!publication) {
+      throw new AppError('Publication not found')
+    }
+
+    return publication
   }
 
-  public async create({ title, description, owner}: ICreatePublication): Promise<IPublication> {
+  public async findByTitle({ title }: IFindByTitle): Promise<IPublication[]> {
+    const publications = await this.ormRepository.find({
+      where: {
+        title: Like(`%${title}%`),
+      }
+    })
+
+    return publications
+  }
+
+  public async create({ 
+    user_id,
+    title,
+    description,
+    pet_name,
+    gender,
+    disappearance_date,
+    last_location
+  }: ICreatePublication): Promise<IPublication> {
     const publication = this.ormRepository.create({
+      user_id,
       title,
       description,
-      owner
+      pet_name,
+      gender,
+      disappearance_date,
+      last_location
     })
 
     return publication
@@ -42,7 +77,7 @@ export default class PublicationRepository {
     return publicationSaved
   }
 
-  public async softDelete(id: string) {
-    await this.ormRepository.softDelete(id)
+  public async softDelete({id}: ISoftDelete) {
+    return this.ormRepository.softDelete(id)
   }
 }

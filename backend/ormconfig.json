@@ -7,6 +7,7 @@
    "database": "buscapets",
    "synchronize": true,
    "logging": false,
+   "legacySpatialSupport": false,
    "entities": [
       "./src/modules/**/entities/*.ts"
    ],
