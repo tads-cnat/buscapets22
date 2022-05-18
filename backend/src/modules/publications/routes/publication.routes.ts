@@ -45,19 +45,6 @@ publicationsRouter.post(
   publicationController.create
 )
 
-publicationsRouter.post(
-  '/:id/comments', isAuthenticated,
-  celebrate({
-    [Segments.PARAMS]: {
-      id: Joi.string().uuid().required(),
-    },
-    [Segments.BODY]: {
-      comment: Joi.string().required()
-    }
-  }),
-  commentController.create
-)
-
 publicationsRouter.patch(
   '/:id', isAuthenticated,
   celebrate({
@@ -85,5 +72,20 @@ publicationsRouter.delete(
   }),
   publicationController.softDelete
 )
+
+publicationsRouter.post(
+  '/:publication_id/comments', isAuthenticated,
+  celebrate({
+    [Segments.PARAMS]: {
+      publication_id: Joi.string().uuid().required(),
+    },
+    [Segments.BODY]: {
+      comment: Joi.string().required()
+    }
+  }),
+  commentController.create
+)
+
+
 
 export default publicationsRouter
