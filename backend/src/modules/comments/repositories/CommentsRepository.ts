@@ -11,11 +11,11 @@ export default class CommentsRepository {
     this.ormRepository = getRepository(Comment)
   }
 
-  public async create({ comment, user, publication }: ICreateComment): Promise<IComment> {
+  public async create({ user_id, publication_id, comment }: ICreateComment): Promise<IComment> {
     const commentCreated = this.ormRepository.create({
-      comment,
-      user,
-      publication
+      user_id,
+      publication_id,
+      comment
     })
 
     return commentCreated
