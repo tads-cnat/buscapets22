@@ -47,11 +47,15 @@ export default class CommentsController {
   }
 
   public async show(request: Request, response: Response): Promise<Response> {
-    const { id } = request.params
+    const { publication_id } = request.params
+    const { id } = request.body
 
     const findByIdComment = new FindCommentService()
 
-    const comment = await findByIdComment.show(id)
+    const comment = await findByIdComment.show({
+      publication_id,
+      id
+    })
 
     return response.json(instanceToInstance(comment))
   }
