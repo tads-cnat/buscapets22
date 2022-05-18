@@ -86,6 +86,19 @@ publicationsRouter.post(
   commentController.create
 )
 
+publicationsRouter.get(
+  '/:publication_id/comments', isAuthenticated,
+  celebrate({
+    [Segments.PARAMS]: {
+      publication_id: Joi.string().uuid().required(),
+    },
+    [Segments.BODY]: {
+      id: Joi.string().uuid().required(),
+    }
+  }),
+  commentController.show
+)
+
 
 
 export default publicationsRouter
