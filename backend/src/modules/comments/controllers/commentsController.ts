@@ -1,5 +1,3 @@
-import FindPublicationService from "@modules/publications/services/FindPublicationService";
-import FindUserService from "@modules/users/services/FindUserService";
 import { instanceToInstance } from "class-transformer";
 import { Request, Response } from "express";
 import CreateCommentService from "../services/CreateCommentService";
@@ -20,20 +18,14 @@ export default class CommentsController {
 
   public async create(request: Request, response: Response): Promise<Response> {
     const { comment } = request.body
-    const { id } = request.params
+    const { publication_id } = request.params
 
     const createComment = new CreateCommentService()
 
-    const findByIdPublication = new FindPublicationService()
-    const findByIdUser = new FindUserService()
-
-    const publication = await findByIdPublication.execute(id)
-    const user = await findByIdUser.execute(request.user.id)
-
     const savedComment = await createComment.execute({
-      comment,
-      user,
-      publication
+      publication_id,
+      user_id: request.user.id,
+      comment
     })
 
     return response.json(instanceToInstance(savedComment))
