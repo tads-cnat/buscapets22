@@ -2,6 +2,8 @@ import Comment from "../entities/Comment";
 import { EntityRepository, getRepository, Repository } from "typeorm";
 import { IComment } from "../models/IComment";
 import { ICreateComment } from "../models/ICreateComment";
+import { IFindByIdAndIdPublication } from "../models/IFindByIdAndIdPublication";
+import AppError from "@shared/errors/AppErrors";
 
 @EntityRepository(Comment)
 export default class CommentsRepository {
@@ -34,6 +36,21 @@ export default class CommentsRepository {
       },
       relations: ['publication', 'user']
     })
+
+    return comment
+  }
+
+  public async findByIdAndPublicationId({id, publication_id}: IFindByIdAndIdPublication): Promise<IComment> {
+    const comment = await this.ormRepository.findOne({
+      where: {
+        id,
+        publication_id
+      }
+    })
+
+    if (!comment) {
+      throw new AppError('Comment not found')
+    }
 
     return comment
   }
