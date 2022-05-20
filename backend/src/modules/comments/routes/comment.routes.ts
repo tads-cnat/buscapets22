@@ -18,6 +18,19 @@ commentsRouter.get(
   commentController.show
 )
 
+commentsRouter.post(
+  '/',
+  celebrate({
+    [Segments.PARAMS]: {
+      publication_id: Joi.string().uuid().required(),
+    },
+    [Segments.BODY]: {
+      comment: Joi.string().required()
+    }
+  }),
+  commentController.create
+)
+
 commentsRouter.patch(
   '/:id', isAuthenticated,
   celebrate({

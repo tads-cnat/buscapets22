@@ -1,10 +1,10 @@
 import { instanceToInstance } from "class-transformer";
 import { Request, Response } from "express";
-import CreateCommentService from "../services/CreateCommentService";
-import FindCommentService from "../services/FindCommentService";
-import ListCommentsService from "../services/ListCommentsService";
-import SoftDeleteCommentService from "../services/SoftDeleteCommentService";
-import UpdateCommentService from "../services/UpdateCommentService";
+import CreateCommentService from "../../publications/services/CreateCommentService";
+import FindCommentService from "../../publications/services/FindCommentService";
+import ListCommentsService from "../../publications/services/ListCommentsService";
+import SoftDeleteCommentService from "../../publications/services/SoftDeleteCommentService";
+import UpdateCommentService from "../../publications/services/UpdateCommentService";
 
 export default class CommentsController {
 

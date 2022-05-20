@@ -1,4 +1,4 @@
-import Comment from "@modules/comments/entities/Comment"
+import Comment from "../entities/Comment"
 import { Geometry } from 'geojson'
 export interface IPublication {
   id: string

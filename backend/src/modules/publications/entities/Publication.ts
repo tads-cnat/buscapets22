@@ -1,7 +1,7 @@
 import User from '../../users/entities/User';
 import { Column, CreateDateColumn, DeleteDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { IPublication } from "../models/IPublication";
-import Comment from '@modules/comments/entities/Comment';
+import Comment from './Comment';
 import { GeometryTransformer } from '@shared/libs/transformers';
 import { Geometry } from 'geojson'
 
