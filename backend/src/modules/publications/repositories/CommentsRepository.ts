@@ -5,6 +5,7 @@ import { ICreateComment } from "../models/ICreateComment";
 import { IFindByIdAndIdPublication } from "../models/IFindByIdAndIdPublication";
 import AppError from "@shared/errors/AppErrors";
 import { IFindById } from "../models/IFindById";
+import { ISoftDelete } from "../models/ISoftDelete";
 
 @EntityRepository(Comment)
 export default class CommentsRepository {
@@ -66,7 +67,7 @@ export default class CommentsRepository {
     return commentSaved
   }
 
-  public async softDelete(id: string) {
+  public async softDelete({id}: ISoftDelete) {
     await this.ormRepository.softDelete(id)
   }
 }
