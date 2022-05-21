@@ -58,12 +58,14 @@ export default class CommentsController {
   }
 
   public async softDelete(request: Request, response: Response) {
-    const { id } = request.params
+    const { id } = request.body
 
     const deleteComment = new SoftDeleteCommentService()
 
-    await deleteComment.execute(id)
+    await deleteComment.execute({
+      id
+    })
 
-    return response.json([])
+    return response.json(true)
   }
 }
