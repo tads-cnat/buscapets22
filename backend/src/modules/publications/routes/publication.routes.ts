@@ -107,9 +107,10 @@ publicationsRouter.patch(
     },
     [Segments.BODY]: {
       id: Joi.string().uuid().required(),
+      comment: Joi.string(),
     }
   }),
-  commentController.show
+  commentController.update
 )
 
 
