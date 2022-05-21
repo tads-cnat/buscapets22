@@ -86,6 +86,7 @@ publicationsRouter.post(
   commentController.create
 )
 
+// publication_id apenas para validar a rota, não será necessário usá-lo
 publicationsRouter.get(
   '/:publication_id/comments', isAuthenticated,
   celebrate({
@@ -99,6 +100,7 @@ publicationsRouter.get(
   commentController.show
 )
 
+// publication_id apenas para validar a rota, não será necessário usá-lo
 publicationsRouter.patch(
   '/:publication_id/comments', isAuthenticated,
   celebrate({
@@ -111,6 +113,20 @@ publicationsRouter.patch(
     }
   }),
   commentController.update
+)
+
+// publication_id apenas para validar a rota, não será necessário usá-lo
+publicationsRouter.delete(
+  '/:publication_id/comments', isAuthenticated,
+  celebrate({
+    [Segments.PARAMS]: {
+      publication_id: Joi.string().uuid().required(),
+    },
+    [Segments.BODY]: {
+      id: Joi.string().uuid().required(),
+    }
+  }),
+  commentController.softDelete
 )
 
 
