@@ -1,15 +1,14 @@
 import { getCustomRepository } from "typeorm";
 import { IComment } from "../models/IComment";
-import { IFindByIdAndIdPublication } from "../models/IFindByIdAndIdPublication";
+import { IFindById } from "../models/IFindById";
 import CommentsRepository from "../repositories/CommentsRepository";
 
 class FindCommentService {
-  public async show({id, publication_id}: IFindByIdAndIdPublication): Promise<IComment> {
+  public async show({id}: IFindById): Promise<IComment> {
     const commentsRepository = getCustomRepository(CommentsRepository)
 
-    const comment = await commentsRepository.findByIdAndPublicationId({
-      id,
-      publication_id
+    const comment = await commentsRepository.findById({
+      id
     })
 
     return comment
