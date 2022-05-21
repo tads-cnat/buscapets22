@@ -32,18 +32,19 @@ export default class CommentsController {
   }
 
   public async update(request: Request, response: Response): Promise<Response> {
-    const { comment } = request.body
-    const { id } = request.params
+    const { publication_id } = request.params
+    const { id, comment } = request.body
 
     const updateComment = new UpdateCommentService()
 
-    const user = await updateComment.update({
+    const updatedComment = await updateComment.update({
+      publication_id,
       id,
-      comment,
+      comment
     })
 
 
-    return response.json(user)
+    return response.json(updatedComment)
   }
 
   public async show(request: Request, response: Response): Promise<Response> {
