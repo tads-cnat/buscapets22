@@ -1,18 +1,18 @@
-import AppError from "@shared/errors/AppErrors";
 import { getCustomRepository } from "typeorm";
+import { ISoftDelete } from "../models/ISoftDelete";
 import CommentsRepository from "../repositories/CommentsRepository";
 
 class SoftDeleteCommentService {
-  public async execute(id: string) {
+  public async execute({id}: ISoftDelete) {
     const commentRepository = getCustomRepository(CommentsRepository);
 
-    const publication = await commentRepository.findById(id)
-
-    if (!publication) {
-      throw new AppError('Publication not found')
-    }
+    const comment = await commentRepository.findById({
+      id
+    })
     
-    await commentRepository.softDelete(id)
+    await commentRepository.softDelete({
+      id: comment.id
+    })
   }
 }
 
