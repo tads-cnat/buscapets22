@@ -32,13 +32,11 @@ export default class CommentsController {
   }
 
   public async update(request: Request, response: Response): Promise<Response> {
-    const { publication_id } = request.params
     const { id, comment } = request.body
 
     const updateComment = new UpdateCommentService()
 
     const updatedComment = await updateComment.update({
-      publication_id,
       id,
       comment
     })
@@ -48,13 +46,11 @@ export default class CommentsController {
   }
 
   public async show(request: Request, response: Response): Promise<Response> {
-    const { publication_id } = request.params
     const { id } = request.body
 
     const findByIdComment = new FindCommentService()
 
     const comment = await findByIdComment.show({
-      publication_id,
       id
     })
 
