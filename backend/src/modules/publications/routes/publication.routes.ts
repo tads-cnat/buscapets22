@@ -2,7 +2,7 @@ import { Router } from 'express';
 import { celebrate, Joi, Segments } from "celebrate";
 import isAuthenticated from '@shared/middlewares/isAthenticated';
 import PublicationsController from '../controllers/publicationsController';
-import CommentsController from '@modules/comments/controllers/commentsController';
+import CommentsController from '@modules/publications/controllers/commentsController';
 
 const publicationsRouter = Router()
 const publicationController = new PublicationsController()
@@ -87,6 +87,19 @@ publicationsRouter.post(
 )
 
 publicationsRouter.get(
+  '/:publication_id/comments', isAuthenticated,
+  celebrate({
+    [Segments.PARAMS]: {
+      publication_id: Joi.string().uuid().required(),
+    },
+    [Segments.BODY]: {
+      id: Joi.string().uuid().required(),
+    }
+  }),
+  commentController.show
+)
+
+publicationsRouter.patch(
   '/:publication_id/comments', isAuthenticated,
   celebrate({
     [Segments.PARAMS]: {

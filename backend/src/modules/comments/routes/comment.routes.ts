@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { celebrate, Joi, Segments } from "celebrate";
 import isAuthenticated from '@shared/middlewares/isAthenticated';
-import CommentsController from '../controllers/commentsController';
+import CommentsController from '../../publications/controllers/commentsController';
 
 const commentsRouter = Router()
 const commentController = new CommentsController()
