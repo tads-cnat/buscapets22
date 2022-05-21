@@ -2,7 +2,7 @@ import { Router } from 'express';
 import { celebrate, Joi, Segments } from "celebrate";
 import isAuthenticated from '@shared/middlewares/isAthenticated';
 import PublicationsController from '../controllers/publicationsController';
-import CommentsController from '@modules/comments/controllers/commentsController';
+import CommentsController from '@modules/publications/controllers/commentsController';
 
 const publicationsRouter = Router()
 const publicationController = new PublicationsController()
@@ -45,19 +45,6 @@ publicationsRouter.post(
   publicationController.create
 )
 
-publicationsRouter.post(
-  '/:id/comments', isAuthenticated,
-  celebrate({
-    [Segments.PARAMS]: {
-      id: Joi.string().uuid().required(),
-    },
-    [Segments.BODY]: {
-      comment: Joi.string().required()
-    }
-  }),
-  commentController.create
-)
-
 publicationsRouter.patch(
   '/:id', isAuthenticated,
   celebrate({
@@ -85,5 +72,63 @@ publicationsRouter.delete(
   }),
   publicationController.softDelete
 )
+
+publicationsRouter.post(
+  '/:publication_id/comments', isAuthenticated,
+  celebrate({
+    [Segments.PARAMS]: {
+      publication_id: Joi.string().uuid().required(),
+    },
+    [Segments.BODY]: {
+      comment: Joi.string().required()
+    }
+  }),
+  commentController.create
+)
+
+// publication_id apenas para validar a rota, não será necessário usá-lo
+publicationsRouter.get(
+  '/:publication_id/comments', isAuthenticated,
+  celebrate({
+    [Segments.PARAMS]: {
+      publication_id: Joi.string().uuid().required(),
+    },
+    [Segments.BODY]: {
+      id: Joi.string().uuid().required(),
+    }
+  }),
+  commentController.show
+)
+
+// publication_id apenas para validar a rota, não será necessário usá-lo
+publicationsRouter.patch(
+  '/:publication_id/comments', isAuthenticated,
+  celebrate({
+    [Segments.PARAMS]: {
+      publication_id: Joi.string().uuid().required(),
+    },
+    [Segments.BODY]: {
+      id: Joi.string().uuid().required(),
+      comment: Joi.string(),
+    }
+  }),
+  commentController.update
+)
+
+// publication_id apenas para validar a rota, não será necessário usá-lo
+publicationsRouter.delete(
+  '/:publication_id/comments', isAuthenticated,
+  celebrate({
+    [Segments.PARAMS]: {
+      publication_id: Joi.string().uuid().required(),
+    },
+    [Segments.BODY]: {
+      id: Joi.string().uuid().required(),
+    }
+  }),
+  commentController.softDelete
+)
+
+
 
 export default publicationsRouter

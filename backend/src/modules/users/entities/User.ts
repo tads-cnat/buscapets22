@@ -2,7 +2,7 @@ import Publication from "../../publications/entities/Publication";
 import { Exclude } from "class-transformer";
 import { Column, CreateDateColumn, DeleteDateColumn, Entity, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { IUser } from '../models/IUser'
-import Comment from "@modules/comments/entities/Comment";
+import Comment from "@modules/publications/entities/Comment";
 
 @Entity('users')
 class User implements IUser {

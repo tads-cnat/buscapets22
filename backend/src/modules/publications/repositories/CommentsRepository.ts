@@ -2,6 +2,10 @@ import Comment from "../entities/Comment";
 import { EntityRepository, getRepository, Repository } from "typeorm";
 import { IComment } from "../models/IComment";
 import { ICreateComment } from "../models/ICreateComment";
+import { IFindByIdAndIdPublication } from "../models/IFindByIdAndIdPublication";
+import AppError from "@shared/errors/AppErrors";
+import { IFindById } from "../models/IFindById";
+import { ISoftDelete } from "../models/ISoftDelete";
 
 @EntityRepository(Comment)
 export default class CommentsRepository {
@@ -11,11 +15,11 @@ export default class CommentsRepository {
     this.ormRepository = getRepository(Comment)
   }
 
-  public async create({ comment, user, publication }: ICreateComment): Promise<IComment> {
+  public async create({ user_id, publication_id, comment }: ICreateComment): Promise<IComment> {
     const commentCreated = this.ormRepository.create({
-      comment,
-      user,
-      publication
+      user_id,
+      publication_id,
+      comment
     })
 
     return commentCreated
@@ -27,13 +31,32 @@ export default class CommentsRepository {
     return comments
   }
 
-  public async findById(id: string): Promise<IComment | undefined> {
+  public async findById({id}: IFindById): Promise<IComment> {
     const comment = await this.ormRepository.findOne({
       where: {
         id
       },
-      relations: ['publication', 'user']
+      relations: ['user_id']
     })
+
+    if (!comment) {
+      throw new AppError('Comment not found')
+    }
+
+    return comment
+  }
+
+  public async findByIdAndPublicationId({id, publication_id}: IFindByIdAndIdPublication): Promise<IComment> {
+    const comment = await this.ormRepository.findOne({
+      where: {
+        id,
+        publication_id
+      }
+    })
+
+    if (!comment) {
+      throw new AppError('Comment not found')
+    }
 
     return comment
   }
@@ -44,7 +67,7 @@ export default class CommentsRepository {
     return commentSaved
   }
 
-  public async softDelete(id: string) {
+  public async softDelete({id}: ISoftDelete) {
     await this.ormRepository.softDelete(id)
   }
 }

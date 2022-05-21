@@ -4,13 +4,13 @@ import { ICreateComment } from "../models/ICreateComment";
 import CommentsRepository from "../repositories/CommentsRepository";
 
 class CreateCommentService {
-  public async execute({comment, user, publication}: ICreateComment): Promise<IComment> {
+  public async execute({user_id, publication_id, comment}: ICreateComment): Promise<IComment> {
     const commentsRepository = getCustomRepository(CommentsRepository)
 
     const createdComment = await commentsRepository.create({
-      comment,
-      user,
-      publication
+      user_id,
+      publication_id,
+      comment
     })
 
     await commentsRepository.save(createdComment)
