@@ -10,10 +10,7 @@ class SoftDeleteUserService {
       id
     })
     
-    // had to find user any way to validate id
-    await usersRepository.softDelete({
-      id: user.id
-    })
+    await usersRepository.softDelete(user)
   }
 }
 

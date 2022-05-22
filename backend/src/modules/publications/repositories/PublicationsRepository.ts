@@ -26,11 +26,28 @@ export default class PublicationRepository {
   }
 
   public async findById({id}: IFindById): Promise<IPublication> {
-    const publication = await this.ormRepository.findOne({
-      where: {
-        id,
-      }
+    const publication = await this.ormRepository.createQueryBuilder('publication')
+    .where({
+      id
     })
+    .leftJoin('publication.user_id', 'users')
+    .leftJoin('publication.comments', 'comments')
+    .leftJoin('comments.user_id', 'users.id')
+    .select([
+      'publication.id',
+      'publication.title',
+      'publication.description',
+      'publication.pet_name',
+      'publication.gender',
+      'publication.disappearance_date',
+      'publication.last_location',
+      'publication.created_at',
+      'publication.updated_at',
+    ])
+    .addSelect(['users.id', 'users.name', 'users.phone'])
+    /** TODO: "comments.user_id ta retornando muitas colunas" **/
+    .addSelect(['comments.id', 'comments.comment', 'comments.user_id', 'comments.created_at'])
+    .getOne()
 
     if (!publication) {
       throw new AppError('Publication not found')
@@ -77,7 +94,7 @@ export default class PublicationRepository {
     return publicationSaved
   }
 
-  public async softDelete({id}: ISoftDelete) {
-    return this.ormRepository.softDelete(id)
+  public async softDelete(publication: IPublication) {
+    return this.ormRepository.softRemove(publication)
   }
 }
