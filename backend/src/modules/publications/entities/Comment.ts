@@ -1,6 +1,6 @@
 import Publication from "@modules/publications/entities/Publication";
 import User from "@modules/users/entities/User";
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { IComment } from "../models/IComment";
 
 @Entity('comments')
@@ -9,10 +9,16 @@ class Comment implements IComment {
   @PrimaryGeneratedColumn('uuid')
   id: string
 
-  @ManyToOne(() => User, user => user.comments)
+  @ManyToOne(() => User, user => user.comments, {
+    onDelete: 'CASCADE'
+  })
+  @JoinColumn({name: 'user_id'})
   user_id: string
 
-  @ManyToOne(() => Publication, publication => publication.comments)
+  @ManyToOne(() => Publication, publication => publication.comments, {
+    onDelete: 'CASCADE'
+  })
+  @JoinColumn({name: 'publication_id'})
   publication_id: string
 
   @Column()
