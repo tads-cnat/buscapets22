@@ -23,12 +23,12 @@ class UpdatePublicationService {
       coordinates: last_location
    }
 
-    publication.title = title
-    publication.description = description
-    publication.pet_name = pet_name
-    publication.gender = gender
-    publication.disappearance_date = disappearance_date
-    publication.last_location = location
+    title && (publication.title = title)
+    description && (publication.description = description)
+    pet_name && (publication.pet_name = pet_name)
+    gender && (publication.gender = gender)
+    disappearance_date && (publication.disappearance_date = disappearance_date)
+    last_location && (publication.last_location = location)
 
     await publicationRespository.save(publication)
 

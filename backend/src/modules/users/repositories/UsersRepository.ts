@@ -5,7 +5,6 @@ import { ICreateUser } from "../models/ICreateUser";
 import { IListUsers } from "../models/IListUsers";
 import { IFindById } from "../models/IFindById";
 import AppError from "@shared/errors/AppErrors";
-import { ISoftDelete } from "../models/ISoftDelete";
 import { IFindByName } from "../models/IFindByName";
 import { IFindByEmail } from "../models/IFindByEmail";
 
@@ -28,7 +27,21 @@ export default class UsersRepository{
   }
 
   public async findById({id}: IFindById): Promise<IUser> {
-    const user = await this.ormRepository.findOne(id)
+    const user = await this.ormRepository.createQueryBuilder('user')
+    .where({
+      id
+    })
+    .leftJoin('user.publications', 'publications')
+    .leftJoin('user.comments', 'comments')
+    .select([
+      'user.id',
+      'user.name',
+      'user.phone',
+      'user.created_at',
+      'user.updated_at'
+    ]).addSelect(['publications.id', 'publications.title', 'publications.created_at',
+    'comments.id'])
+    .getOne()
 
     if (!user) {
       throw new AppError('User not found');
@@ -95,7 +108,7 @@ export default class UsersRepository{
     return userSaved
   }
 
-  public async softDelete({id}: ISoftDelete){
-    return this.ormRepository.softDelete(id)
+  public async softDelete(user: IUser){
+    return this.ormRepository.softRemove(user)
   }
 }

@@ -10,10 +10,7 @@ class SoftDeletePublicationService {
       id
     })
     
-    // had to find publication any way to validate id
-    await publicationRepository.softDelete({
-      id: publication.id
-    })
+    await publicationRepository.softDelete(publication)
   }
 }
 

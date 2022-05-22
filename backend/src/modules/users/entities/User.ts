@@ -26,10 +26,14 @@ class User implements IUser {
   @Column({default: 'user'})
   role: string
 
-  @OneToMany(() => Publication, publication => publication.user_id)
+  @OneToMany(() => Publication, publication => publication.user_id, {
+    cascade: true,
+  })
   publications: Publication[]
 
-  @OneToMany(() => Comment, comment => comment.user_id)
+  @OneToMany(() => Comment, comment => comment.user_id, {
+    cascade: true
+  })
   comments: Comment[]
 
   @CreateDateColumn()

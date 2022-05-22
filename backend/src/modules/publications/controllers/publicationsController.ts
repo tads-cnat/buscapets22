@@ -75,7 +75,7 @@ export default class PublicationsController {
 
     const updatePublication = new UpdatePublicationService()
 
-    const user = await updatePublication.execute({
+    const publication = await updatePublication.execute({
       id,
       title,
       description,
@@ -85,7 +85,7 @@ export default class PublicationsController {
       last_location
     })
 
-    return response.json(user)
+    return response.json(publication)
   }
 
   public async softDelete(request: Request, response: Response) {
