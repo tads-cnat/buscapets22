@@ -32,12 +32,17 @@ export default class CommentsRepository {
   }
 
   public async findById({id}: IFindById): Promise<IComment> {
-    const comment = await this.ormRepository.findOne({
-      where: {
-        id
-      },
-      relations: ['user_id']
+    const comment = await this.ormRepository.createQueryBuilder('comment')
+    .where({
+      id
     })
+    .leftJoin('comment.user_id', 'users')
+    .select([
+      'comment.id',
+      'comment.comment',
+      'comment.created_at'
+    ]).addSelect(['users.id', 'users.name'])
+    .getOne()
 
     if (!comment) {
       throw new AppError('Comment not found')
