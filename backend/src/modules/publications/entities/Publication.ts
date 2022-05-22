@@ -1,5 +1,5 @@
 import User from '../../users/entities/User';
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { IPublication } from "../models/IPublication";
 import Comment from './Comment';
 import { GeometryTransformer } from '@shared/libs/transformers';
@@ -10,8 +10,9 @@ class Publication implements IPublication {
 
   @PrimaryGeneratedColumn('uuid')
   id: string
-
+  
   @ManyToOne(() => User, user => user.publications)
+  @JoinColumn({name: 'user_id'})
   user_id: string
 
   @Column()
