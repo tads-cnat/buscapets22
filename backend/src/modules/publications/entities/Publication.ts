@@ -11,7 +11,9 @@ class Publication implements IPublication {
   @PrimaryGeneratedColumn('uuid')
   id: string
   
-  @ManyToOne(() => User, user => user.publications)
+  @ManyToOne(() => User, user => user.publications, {
+    onDelete: 'CASCADE'
+  })
   @JoinColumn({name: 'user_id'})
   user_id: string
 
@@ -38,7 +40,9 @@ class Publication implements IPublication {
   })
   last_location: Geometry
 
-  @OneToMany(() => Comment, comment => comment.publication_id)
+  @OneToMany(() => Comment, comment => comment.publication_id, {
+    cascade: true
+  })
   comments: Comment[]
 
   @CreateDateColumn()
