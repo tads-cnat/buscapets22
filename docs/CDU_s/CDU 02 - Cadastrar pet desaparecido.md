@@ -5,6 +5,7 @@
 O usuário logado no sistema irá cadastrar um pet desaparecido.
 
 ## 2. Atores
+
 Usuários
 
 ## 3. Pré-condições
@@ -14,9 +15,9 @@ O usuário precisa ter acessado sua conta para cadastrar o pet desaparecido.
 
 ## 4. Pós-condições
 
-1. Após a publicação do pet desaparecido ter sido feita, ela ficará exposta no perfil do usuário. 
+1. Após a publicação do pet desaparecido ter sido feita, ela ficará exposta no perfil do usuário.
 2. O mapa na página inicial irá exibir um ícone baseado no endereço cadastrado na publicação.
-3. Caso o animal seja encontrado, a publicação ficará com um ícone simbolizando que ele foi encontrado. 
+3. Caso o animal seja encontrado, a publicação ficará com um ícone simbolizando que ele foi encontrado.
 
 ## 5. Fluxo Principal
 
