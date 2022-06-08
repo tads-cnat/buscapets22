@@ -4,7 +4,7 @@
 
 | Data | Versão | Descrição | Autor |
 |--- |--- |--- |--- |
-| 25/05/2022 | 1.0 |Documento de Risco| Jefferson Batista, Nicholas Balby, Rafaela Micaela |
+| 08/06/2022 | 1.0 |Documento de Risco| Jefferson Batista, Nicholas Balby, Rafaela Micaela |
 
 # 1 Resumo
 Documento de risco abordando três tópicos: Desistência de algum membro da equipe, Framework Frontend NextJs, Incompatibilidade das documentações.
@@ -34,9 +34,9 @@ Documento de risco abordando três tópicos: Desistência de algum membro da equ
 
 ## 2.4- Indicadores
 
-- **Desistência de algum integrante da equipe:** Em 2019, 40% dos estudantes de ensino superior tinham concluído o curso e 59% desistiram, o que inclui abandono e transferência. Além disso, 1% permanece na graduação (Inep). 
-- **Framework Frontend Next Js:** Dois dos três membros da equipe não possuem experiência com frameworks front end. Apenas um membro possui experiência com NextJS.
-- **Incompatibilidade das documentações:** A existência de CDUs desatualizados e de diagramas.
+- **Seguidas faltas em disciplinas obrigatórias do PDS**
+- **Seguidas faltas em reuniões semanais do PDS**
+- **Falta de comunicação entre membros da equipe**
 
 ## 2.5- Estratégia de Diminuição
 
@@ -44,7 +44,7 @@ Documento de risco abordando três tópicos: Desistência de algum membro da equ
 - Reuniões semanais para manter a comunicação e fluidez entre a equipe de maneira eficaz, dessa forma concluindo as demandas dentro dos prazos estipulados.
 - Distribuição eficiente das tarefas, priorizando o desempenho no desenvolvimento delas.
 
-**Framework Frontend Vue:** Aprendizado de todos os membros da equipe ao básico de Next Js, antes do início do desenvolvimento.
+**Framework Frontend Next Js:** Aprendizado de todos os membros da equipe ao básico de Next Js, antes do início do desenvolvimento.
 Incompatibilidade das documentações: Fazer novas documentações o quanto antes.
 
 ## 2.6- Plano de Contingência
