@@ -6,12 +6,12 @@ O usuário logado no sistema irá criar uma publicação de pet desaparecido.
 
 ## 2. Atores
 
-Usuários
+● Usuário cadastrado
 
 ## 3. Pré-condições
 
-O usuário precisa estar cadastrado no site para poder criar a publicação do pet desaparecido.  
-O usuário precisa ter acessado sua conta para criar a publicação do pet desaparecido.
+● O usuário precisa estar cadastrado no site para poder criar a publicação do pet desaparecido.  
+● O usuário precisa ter acessado sua conta para criar a publicação do pet desaparecido.
 
 ## 4. Pós-condições
 

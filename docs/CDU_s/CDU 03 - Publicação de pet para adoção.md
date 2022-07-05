@@ -2,15 +2,16 @@
 
 ## 1. Descrição
 
-O usuário vai acessar a sua conta e em seguida cadastrar pet para adoção e preencher as informações como: foto, nome, etc...
+O usuário logado no sistema irá criar uma publicação de pet para adoção.
 
 ## 2. Atores
 
 ● Usuário cadastrado
 
-## 3. Pre-condições
+## 3. Pré-condições
 
-● O usuário precisa ter um cadastro
+● O usuário precisa estar cadastrado no site para poder criar a publicação do pet para adoção.  
+● O usuário precisa ter acessado sua conta para criar a publicação do pet para adoção.
 
 ## 4 .Pós-condições
 

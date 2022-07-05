@@ -1,8 +1,8 @@
-# CDU04 - Visualizar Publicação do pet
+# CDU04 - Visualizar Publicação do pet desaparecido
 
 ## 1. Descrição
 
-O usuário acessa a publicação do pet para ter mais informações do desaparecimento ou contato com o dono do post.
+O usuário acessa a publicação do desaparecimento para ter mais informações do paradeiro, informações sobre o pet, também como contato do dono do post.
 
 ## 2. Atores
 
@@ -22,18 +22,13 @@ O usuário acessa a publicação do pet para ter mais informações do desaparec
 
 ### Estende CDU 9 - Filtrar publicações
 
-1. O usuário procura no mapa disponível um pet cadastrado
+1. O usuário procura no mapa disponível a publicação de um pet desaparecido
 2. O usuário clica em cima da foto do pet
 3. O site mostrará uma tela com informações do pet
-   - Nome
-   - espécie
-   - data do desaparecimento
-   - local do desaparecimento
+   - Nome do pet
    - Nome do tutor
    - Foto do animal
-   - Se possui
-   - Recompensa
-   - Observações
+
 
 ## 6. Fluxos alternativos
 
