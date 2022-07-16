@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import Link from "next/link";
 
 export const LoginContainer = styled.div`
   position: absolute;
@@ -19,9 +18,9 @@ export const FieldOption = styled.a`
   align-items: center;
   border-radius: 0.5rem;
   padding: 0.3rem 0.5rem;
-  background-color:  ${({theme}) => theme.colors.light};
-  border: 1px solid ${({theme}) => theme.colors.gray};
-  color: ${({theme}) => theme.colors.dark};
+  background-color:  #fff;
+  border: 1px solid #ccc;
+  color: #202020;
   outline: none;
   text-decoration: none;
 
@@ -35,7 +34,7 @@ export const FieldOption = styled.a`
 `
 
 export const FieldDescription = styled.span`
-  color: ${({theme}) => theme.colors.dark};
+  color: #202020;
   font-weight: bold;
   font-size: 0.9rem;
   margin: 0 auto;

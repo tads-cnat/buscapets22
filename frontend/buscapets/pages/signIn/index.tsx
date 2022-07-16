@@ -1,5 +1,7 @@
 import { NextComponentType } from "next";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { api } from "../api/base";
+import Router from "next/router";
 import {
   ButtonDescription,
   ContainerLogin,
@@ -16,8 +18,16 @@ interface IFormValues {
 
 const SignIn: NextComponentType = () => {
   const { register, handleSubmit } = useForm<IFormValues>();
-  const onSubmit: SubmitHandler<IFormValues> = ({ email, password }) => {
-    console.log(email, password);
+  const onSubmit: SubmitHandler<IFormValues> = (form) => {
+    async function login() {
+      await api.post("/users/session", form).then((response) => {
+        localStorage.setItem("token", response.data.token);
+        localStorage.setItem("id", response.data.user.id);
+        Router.push("/home");
+      });
+    }
+
+    login();
   };
   return (
     <ContainerLogin>

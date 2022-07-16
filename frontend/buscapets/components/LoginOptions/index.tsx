@@ -7,11 +7,6 @@ import { LinkProps } from "next/link";
 import { useRouter } from "next/router";
 import { ActiveLink } from "../ActiveLink";
 
-interface IActiveLinkProps extends LinkProps {
-  children: ReactElement;
-  activeClassName: string;
-}
-
 const LoginOptions: NextComponentType = () => {
   const { asPath } = useRouter();
   return (
