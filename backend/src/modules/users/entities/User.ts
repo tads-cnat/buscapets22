@@ -3,7 +3,6 @@ import { Exclude } from "class-transformer";
 import { Column, CreateDateColumn, DeleteDateColumn, Entity, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { IUser } from '../models/IUser'
 import Comment from "@modules/publications/entities/Comment";
-import User_image from "./User_image";
 
 @Entity('users')
 class User implements IUser {
@@ -37,10 +36,7 @@ class User implements IUser {
   })
   comments: Comment[]
 
-  @OneToOne(() => User_image, user_image => user_image.image_url, {
-    cascade: true,
-    nullable: true
-  })
+  @Column()
   image_url: string
 
   @CreateDateColumn()

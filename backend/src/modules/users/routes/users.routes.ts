@@ -3,10 +3,13 @@ import { celebrate, Joi, Segments } from "celebrate";
 import UsersController from '../controllers/UsersController';
 import SessionController from '../controllers/SessionController';
 import isAuthenticated from '@shared/middlewares/isAthenticated';
+import multer from 'multer';
+import uploadConfig from "@config/upload";
 
 const usersRouter = Router()
 const usersController = new UsersController()
 const sessionController = new SessionController()
+const upload = multer(uploadConfig.multer)
 
 usersRouter.post(
   '/session',
@@ -20,7 +23,7 @@ usersRouter.post(
 )
 
 usersRouter.post(
-  '/',
+  '/', upload.single("user_image"),
   celebrate({
     [Segments.BODY]: {
       name: Joi.string().required(),
