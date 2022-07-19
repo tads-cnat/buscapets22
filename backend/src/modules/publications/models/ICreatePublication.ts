@@ -6,4 +6,5 @@ export interface ICreatePublication {
   gender: string
   disappearance_date: Date
   last_location: any
+  images_url: string
 }

@@ -20,16 +20,12 @@ class CreateUserService {
 
     const hashedPassword = await hash(password, 8)
 
-    let image_url_created
+    let image_url_created: string =''
 
     if(image_url){
       const s3Provider = new S3StorageProvider();
       const filename = await s3Provider.saveFile(image_url);
       image_url_created = filename;
-<<<<<<< HEAD
-=======
-      console.log(image_url_created)
->>>>>>> 81f706cf9d203715a9c422d8c4fded8cdeba880e
     }
 
     const user = await usersRepository.create({

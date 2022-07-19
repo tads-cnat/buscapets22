@@ -73,7 +73,8 @@ export default class PublicationRepository {
     pet_name,
     gender,
     disappearance_date,
-    last_location
+    last_location,
+    images_url
   }: ICreatePublication): Promise<IPublication> {
     const publication = this.ormRepository.create({
       user_id,
@@ -82,7 +83,8 @@ export default class PublicationRepository {
       pet_name,
       gender,
       disappearance_date,
-      last_location
+      last_location,
+      images_url
     })
 
     return publication

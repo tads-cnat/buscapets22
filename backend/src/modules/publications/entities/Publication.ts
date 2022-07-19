@@ -41,11 +41,11 @@ class Publication implements IPublication {
   })
   last_location: Geometry
 
-  @OneToMany(() => Publication_image, publication_image => publication_image.image_url, {
+  @OneToMany(() => Publication_image, publication_image => publication_image.publication_id, {
     cascade: true,
     nullable: true
   })
-  images_url: Publication_image[]
+  images_url: string
 
   @OneToMany(() => Comment, comment => comment.publication_id, {
     cascade: true
