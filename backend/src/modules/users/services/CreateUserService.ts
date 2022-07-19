@@ -26,7 +26,6 @@ class CreateUserService {
       const s3Provider = new S3StorageProvider();
       const filename = await s3Provider.saveFile(image_url);
       image_url_created = filename;
-      console.log(image_url_created)
     }
 
     const user = await usersRepository.create({
