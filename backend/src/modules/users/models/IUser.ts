@@ -1,3 +1,5 @@
+import User_image from "../entities/User_image"
+
 export interface IUser {
   id: string
   name: string
