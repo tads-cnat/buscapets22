@@ -19,11 +19,6 @@ export default class S3StorageProvider {
 
     const ContentType = mime.getType(originalPath);
 
-<<<<<<< HEAD
-=======
-    console.log("mime type", ContentType)
-
->>>>>>> 81f706cf9d203715a9c422d8c4fded8cdeba880e
     if (!ContentType) {
       throw new Error('File not found');
     }
