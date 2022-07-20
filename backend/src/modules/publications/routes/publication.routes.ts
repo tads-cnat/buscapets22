@@ -34,8 +34,12 @@ publicationsRouter.get(
 )
 
 publicationsRouter.post(
-  '/', isAuthenticated,
-  upload.single("publication_image1"),
+  '/', isAuthenticated, upload.single("publication_image"),
+  (req, res, next) => {
+    const ltdlgdArray = JSON.parse(req.body.last_location)
+    req.body.last_location = ltdlgdArray
+    next()
+  },
   celebrate({
     [Segments.BODY]: {
       title: Joi.string().required(),
