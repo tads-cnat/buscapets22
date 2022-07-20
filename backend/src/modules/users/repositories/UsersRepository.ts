@@ -91,12 +91,13 @@ export default class UsersRepository{
     return user
   }
 
-  public async create({ name, email, phone, password }: ICreateUser): Promise<IUser> {
+  public async create({ name, email, phone, password, image_url }: ICreateUser): Promise<IUser> {
     const user = this.ormRepository.create({
       name,
       email,
       phone,
-      password
+      password,
+      image_url
     })
 
     return user

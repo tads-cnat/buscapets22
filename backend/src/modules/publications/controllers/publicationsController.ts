@@ -56,7 +56,8 @@ export default class PublicationsController {
       pet_name,
       gender,
       disappearance_date,
-      last_location
+      last_location,
+      img_url: request.file.filename
     })
 
     return response.json(instanceToInstance(publication))

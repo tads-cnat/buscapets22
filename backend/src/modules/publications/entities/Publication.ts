@@ -4,6 +4,7 @@ import { IPublication } from "../models/IPublication";
 import Comment from './Comment';
 import { GeometryTransformer } from '@shared/libs/transformers';
 import { Geometry } from 'geojson'
+import Publication_image from './Publication_image';
 
 @Entity('publications')
 class Publication implements IPublication {
@@ -39,6 +40,11 @@ class Publication implements IPublication {
     transformer: new GeometryTransformer(),
   })
   last_location: Geometry
+
+  @OneToMany(() => Publication_image, (publication_image) => publication_image.publication_id, {
+    cascade: true
+  })
+  image_url: Publication_image[]
 
   @OneToMany(() => Comment, comment => comment.publication_id, {
     cascade: true

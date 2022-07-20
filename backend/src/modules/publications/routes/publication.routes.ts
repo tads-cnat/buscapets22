@@ -3,10 +3,13 @@ import { celebrate, Joi, Segments } from "celebrate";
 import isAuthenticated from '@shared/middlewares/isAthenticated';
 import PublicationsController from '../controllers/publicationsController';
 import CommentsController from '@modules/publications/controllers/commentsController';
+import multer from 'multer';
+import uploadConfig from "@config/upload";
 
 const publicationsRouter = Router()
 const publicationController = new PublicationsController()
 const commentController = new CommentsController()
+const upload = multer(uploadConfig.multer)
 
 publicationsRouter.get('/', isAuthenticated, publicationController.list)
 
@@ -31,7 +34,12 @@ publicationsRouter.get(
 )
 
 publicationsRouter.post(
-  '/', isAuthenticated,
+  '/', isAuthenticated, upload.single("publication_image"),
+  (req, res, next) => {
+    const ltdlgdArray = JSON.parse(req.body.last_location)
+    req.body.last_location = ltdlgdArray
+    next()
+  },
   celebrate({
     [Segments.BODY]: {
       title: Joi.string().required(),

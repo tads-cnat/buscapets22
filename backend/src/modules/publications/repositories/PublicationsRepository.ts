@@ -6,7 +6,6 @@ import { IListPublications } from "../models/IListPublications";
 import { IFindById } from "../models/IFindById";
 import AppError from "@shared/errors/AppErrors";
 import { IFindByTitle } from "../models/IFindByTitle";
-import { ISoftDelete } from "../models/ISoftDelete";
 
 @EntityRepository(Publication)
 export default class PublicationRepository {
@@ -73,7 +72,8 @@ export default class PublicationRepository {
     pet_name,
     gender,
     disappearance_date,
-    last_location
+    last_location,
+    img_url
   }: ICreatePublication): Promise<IPublication> {
     const publication = this.ormRepository.create({
       user_id,
@@ -82,7 +82,8 @@ export default class PublicationRepository {
       pet_name,
       gender,
       disappearance_date,
-      last_location
+      last_location,
+      image_url: [{image_url: img_url}]
     })
 
     return publication

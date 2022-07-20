@@ -1,5 +1,6 @@
 import Comment from "../entities/Comment"
 import { Geometry } from 'geojson'
+import Publication_image from "../entities/Publication_image"
 export interface IPublication {
   id: string
   user_id: string
@@ -9,6 +10,7 @@ export interface IPublication {
   gender: string
   disappearance_date: Date
   last_location: Geometry
+  image_url: Publication_image[]
   comments: Comment[]
   created_at: Date
   updated_at: Date

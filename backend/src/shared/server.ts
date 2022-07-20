@@ -26,7 +26,9 @@ createConnection().then(async connection => {
         }
         return response.status(500).json({
             status: "error",
-            message: error.message
+            message: error.message,
+            details: error.stack,
+            name: error.name
         })
     })
 
