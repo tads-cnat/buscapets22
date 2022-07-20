@@ -14,7 +14,7 @@ class CreatePublicationService {
     gender,
     disappearance_date,
     last_location,
-    images_url
+    img_url
   }: ICreatePublication): Promise<IPublication> {
     const publicationRepository = getCustomRepository(PublicationRepository)
 
@@ -23,10 +23,10 @@ class CreatePublicationService {
       coordinates: last_location
    }
 
-   let image_url_created:string = ''
+    let image_url_created:string = ''
 
     const s3Provider = new S3StorageProvider();
-    const filename = await s3Provider.saveFile(images_url);
+    const filename = await s3Provider.saveFile(img_url);
     image_url_created = filename;
 
     const publication = await publicationRepository.create({
@@ -37,7 +37,7 @@ class CreatePublicationService {
       gender,
       disappearance_date,
       last_location: location,
-      images_url: image_url_created
+      img_url: image_url_created
     })
 
     await publicationRepository.save(publication)
