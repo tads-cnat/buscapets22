@@ -1,4 +1,5 @@
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, ManyToOne,
+PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { IPublication_image } from '../models/IPublication_image';
 import Publication from './Publication';
 
@@ -8,8 +9,8 @@ class Publication_image implements IPublication_image {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @ManyToOne(() => Publication, publication => publication.images_url, {
-    onDelete: 'CASCADE'
+  @ManyToOne(() => Publication, (publication) => publication.image_url, {
+    onDelete: 'CASCADE',
   })
   @JoinColumn({name: 'publication_id'})
   publication_id: string
