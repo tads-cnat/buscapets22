@@ -5,13 +5,12 @@ import PublicationsController from '../controllers/publicationsController';
 import CommentsController from '@modules/publications/controllers/commentsController';
 import multer from 'multer';
 import uploadConfig from "@config/upload";
-
 const publicationsRouter = Router()
 const publicationController = new PublicationsController()
 const commentController = new CommentsController()
 const upload = multer(uploadConfig.multer)
 
-publicationsRouter.get('/', isAuthenticated, publicationController.list)
+publicationsRouter.get('/', publicationController.list)
 
 publicationsRouter.get(
   '/title', isAuthenticated,
@@ -36,6 +35,7 @@ publicationsRouter.get(
 publicationsRouter.post(
   '/', isAuthenticated, upload.single("publication_image"),
   (req, res, next) => {
+    console.log(req)
     const ltdlgdArray = JSON.parse(req.body.last_location)
     req.body.last_location = ltdlgdArray
     next()

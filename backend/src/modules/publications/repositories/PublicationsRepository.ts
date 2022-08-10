@@ -16,7 +16,7 @@ export default class PublicationRepository {
   }
 
   public async findAll(): Promise<IListPublications> {
-    const publications = await this.ormRepository.find()
+    const publications = await this.ormRepository.find({relations: ["user_id", "image_url"]})
 
     return {
       publications,
