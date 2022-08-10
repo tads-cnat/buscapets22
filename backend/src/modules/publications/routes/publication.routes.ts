@@ -12,6 +12,8 @@ const upload = multer(uploadConfig.multer)
 
 publicationsRouter.get('/', publicationController.listPreview)
 
+publicationsRouter.get('/all', isAuthenticated, publicationController.list)
+
 publicationsRouter.get(
   '/title', isAuthenticated,
   celebrate({
