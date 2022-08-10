@@ -2,7 +2,7 @@ import { getCustomRepository } from "typeorm";
 import { IListPublications } from "../models/IListPublications";
 import PublicationRepository from "../repositories/PublicationsRepository";
 
-class ListPublicationsService {
+class ListPublicationsPreviewService {
   public async execute(): Promise<IListPublications> {
     const publicationRespository = getCustomRepository(PublicationRepository)
     const publications = await publicationRespository.findAllPreview()
@@ -11,4 +11,4 @@ class ListPublicationsService {
   }
 }
 
-export default ListPublicationsService
+export default ListPublicationsPreviewService
