@@ -15,8 +15,16 @@ export default class PublicationRepository {
     this.ormRepository = getRepository(Publication)
   }
 
-  public async findAll(): Promise<IListPublications> {
-    const publications = await this.ormRepository.find({relations: ["user_id", "image_url"]})
+  public async findAllPreview(): Promise<IListPublications> {
+    const publications = await this.ormRepository.createQueryBuilder('publication')
+    .leftJoin('publication.user_id', 'users')
+    .leftJoin('publication.image_url', 'publications_images')
+    .select([
+      'publication.id',
+      'publication.last_location',
+    ])
+    .addSelect(['publications_images.image_url'])
+    .getMany()
 
     return {
       publications,
