@@ -3,6 +3,7 @@ import { Request, Response } from "express";
 import CreatePublicationService from "../services/CreatePublicationService";
 import FindByTitlePublicationService from "../services/FindByTitlePublicationService";
 import FindPublicationService from "../services/FindPublicationService";
+import ListPublicationsPreviewService from "../services/ListPublicationsPreviewService";
 import ListPublicationsService from "../services/ListPublicationsService";
 import SoftDeletePublicationService from "../services/SoftDeletePublicationService";
 import UpdatePublicationService from "../services/UpdatePublicationService";
@@ -11,6 +12,14 @@ export default class PublicationsController {
 
   public async list(request: Request, response: Response): Promise<Response> {
     const listPublications = new ListPublicationsService()
+
+    const publications = await listPublications.execute()
+
+    return response.json(instanceToInstance(publications))
+  }
+
+  public async listPreview(request: Request, response: Response): Promise<Response> {
+    const listPublications = new ListPublicationsPreviewService()
 
     const publications = await listPublications.execute()
 
