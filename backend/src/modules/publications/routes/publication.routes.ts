@@ -5,6 +5,7 @@ import PublicationsController from '../controllers/publicationsController';
 import CommentsController from '@modules/publications/controllers/commentsController';
 import multer from 'multer';
 import uploadConfig from "@config/upload";
+import parseLastLocation from '@shared/middlewares/parseLastLocation';
 const publicationsRouter = Router()
 const publicationController = new PublicationsController()
 const commentController = new CommentsController()
@@ -36,12 +37,7 @@ publicationsRouter.get(
 
 publicationsRouter.post(
   '/', isAuthenticated, upload.single("publication_image"),
-  (req, res, next) => {
-    console.log(req)
-    const ltdlgdArray = JSON.parse(req.body.last_location)
-    req.body.last_location = ltdlgdArray
-    next()
-  },
+  parseLastLocation,
   celebrate({
     [Segments.BODY]: {
       title: Joi.string().required(),
