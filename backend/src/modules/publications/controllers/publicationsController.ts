@@ -9,7 +9,7 @@ import UpdatePublicationService from "../services/UpdatePublicationService";
 
 export default class PublicationsController {
 
-  public async list(request: Request, response: Response): Promise<Response> {
+  public async listPreview(request: Request, response: Response): Promise<Response> {
     const listPublications = new ListPublicationsService()
 
     const publications = await listPublications.execute()

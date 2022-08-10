@@ -10,7 +10,7 @@ const publicationController = new PublicationsController()
 const commentController = new CommentsController()
 const upload = multer(uploadConfig.multer)
 
-publicationsRouter.get('/', publicationController.list)
+publicationsRouter.get('/', publicationController.listPreview)
 
 publicationsRouter.get(
   '/title', isAuthenticated,
