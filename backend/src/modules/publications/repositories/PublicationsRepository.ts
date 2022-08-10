@@ -15,6 +15,15 @@ export default class PublicationRepository {
     this.ormRepository = getRepository(Publication)
   }
 
+  public async findAll(): Promise<IListPublications> {
+    const publications = await this.ormRepository.find({relations: ["user_id", "comments", "image_url"]})
+
+    return {
+      publications,
+      count: publications.length
+    } 
+  }
+
   public async findAllPreview(): Promise<IListPublications> {
     const publications = await this.ormRepository.createQueryBuilder('publication')
     .leftJoin('publication.user_id', 'users')
