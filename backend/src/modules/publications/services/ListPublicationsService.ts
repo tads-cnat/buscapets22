@@ -5,7 +5,7 @@ import PublicationRepository from "../repositories/PublicationsRepository";
 class ListPublicationsService {
   public async execute(): Promise<IListPublications> {
     const publicationRespository = getCustomRepository(PublicationRepository)
-    const publications = await publicationRespository.findAll()
+    const publications = await publicationRespository.findAllPreview()
     
     return publications
   }
