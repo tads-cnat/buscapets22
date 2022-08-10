@@ -5,7 +5,7 @@
 > O Buscapets é um site que procura reunir pessoas que perderam seus pets e pessoas que estejam dispostas a encontrá-los por solidariedade. Como também, pessoas interessadas em adotar. Sendo assim, uma forma de centralizar um nicho disposto a ajudar mutuamente.
 # Tecnologias Utilizadas
 
->Javascript, usando o framework NodeJS e NextJS, e como base de dados, MySQL
+>Typescript, usando o framework NodeJS e ReactJS, e como base de dados, MySQL
 # Pré-Requisitos
 - Sistema de controle de versões `git` ( https://www.git-scm.com/ )
 - Instalação do Node  ( https://nodejs.org/en/download/ )
