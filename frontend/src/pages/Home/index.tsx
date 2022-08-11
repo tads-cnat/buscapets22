@@ -73,7 +73,7 @@ const Home: React.FC = () => {
                   image_url={publication.image_url[0].image_url}
                 />
               }
-              anchor="top-left"
+              anchor="center"
               pitchAlignment="map"
               rotationAlignment="map"
             />
