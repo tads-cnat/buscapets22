@@ -116,7 +116,7 @@ const RegisterPublication: React.FC = () => {
         onSubmit={handleSubmit(onSubmit)}
         show={showForm}
       >
-        <StepOne next={nextStep}>
+        <StepOne next={showForm && !nextStep}>
           <ContainerImgField>
             {!imgPreview && <UploadIcon src={upload_icon} />}
             <Field

@@ -124,14 +124,14 @@ export const ContainerImgTextField = styled.div`
     border: 1px solid ${({theme}) => theme.colors.gray};
     border-radius: 1rem;
     margin-bottom: 1rem;
+
 `
 
 export const StepOne = styled.div<INextStep>`
   display: flex;
   flex-direction: column;
-  width: 100%;
 
-  ${ props => props.next && css`
+  ${ props => !props.next && css`
     display: none;
   `};
 `
