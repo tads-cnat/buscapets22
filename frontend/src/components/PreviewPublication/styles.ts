@@ -5,6 +5,7 @@ interface IImageUrl {
 }
 
 export const Container = styled.div<IImageUrl>`
+  cursor: pointer;
   width: 8.6rem;
   height: 8.6rem;
   border-radius: 50%;

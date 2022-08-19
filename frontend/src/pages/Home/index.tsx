@@ -1,9 +1,6 @@
 import React from "react";
 import "mapbox-gl/dist/mapbox-gl.css";
-import Map, { Marker, Popup, NavigationControl,
-  FullscreenControl,
-  ScaleControl,
-  GeolocateControl} from "react-map-gl";
+import Map, { Marker } from "react-map-gl";
 import { useSelector, useDispatch } from "react-redux";
 import Logo from "../../components/Logo";
 import RegisterPublication from "../../components/RegisterPublication";
@@ -13,7 +10,7 @@ import { AppDispatch, RootState } from "../../redux/store";
 import { Container, Divv } from "./styles";
 import { getPublications } from "../../redux/publicationSlice";
 import PreviewPublication from "../../components/PreviewPublication";
-import Publication from '../../components/Publication'
+import Publication from "../../components/Publication";
 
 interface IAllPublication {
   id: string;
@@ -23,7 +20,9 @@ const Home: React.FC = () => {
   const publications = useSelector(
     (state: RootState) => state.publication.publications
   );
-  const [allPublication, setAllPublication] = React.useState<IAllPublication | null>(null);
+  const [allPublication, setAllPublication] =
+    React.useState<IAllPublication | null>(null);
+  const [slide, setSlide] = React.useState<boolean>(false);
   const isLogged = useSelector((state: RootState) => state.user.isLogged);
   const cursorIcon = useSelector((state: RootState) => state.map.cursorIcon);
   const coordinates = useSelector((state: RootState) => state.map);
@@ -34,20 +33,20 @@ const Home: React.FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  console.log(allPublication)
+  console.log(allPublication);
 
   return (
     <Container icon={cursorIcon}>
       <Logo />
       {!isLogged ? <SignIn /> : <RegisterPublication />}
       <Map
-        mapboxAccessToken={process.env.REACT_APP_MAPBOX_KEY}
+        mapboxAccessToken={process.env.REACT_APP_API_KEY}
         initialViewState={{
           latitude: -5.812846584566398,
           longitude: -35.20470354406224,
           zoom: 16,
           bearing: 0,
-          pitch: 0
+          pitch: 0,
         }}
         style={{ width: "100%", height: "100%" }}
         mapStyle="mapbox://styles/nicholas-tavares/cl5iiphub001815pes7qdna09"
@@ -75,15 +74,23 @@ const Home: React.FC = () => {
               anchor="center"
               pitchAlignment="map"
               rotationAlignment="map"
-              onClick={() => setAllPublication({id: publication.id})}
+              onClick={() => {
+                setAllPublication({ id: publication.id });
+                setSlide(true);
+              }}
             >
-              <PreviewPublication 
-                  image_url={publication.image_url[0].image_url}
-                />
+              <PreviewPublication
+                image_url={publication.image_url[0].image_url}
+              />
             </Marker>
           ))}
       </Map>
-      <Publication id={allPublication?.id} setAllPublication={setAllPublication} />
+      <Publication
+        id={allPublication?.id}
+        slide={slide}
+        setSlide={setSlide}
+        setAllPublication={setAllPublication}
+      />
     </Container>
   );
 };

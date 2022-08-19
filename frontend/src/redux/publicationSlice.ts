@@ -21,6 +21,36 @@ interface IPublication {
   user_id: string
 }
 
+interface IPublicationView {
+  id: string
+  title: string
+  description: string
+  pet_name: string
+  gender: string
+  disappearance_date: string
+  image_url: [
+    {
+      id: string,
+      image_url: string
+    }
+  ]
+  last_location: {
+    type: string
+    coordinates: [number, number]
+  }
+  user_id: {
+    id: string
+    name: string
+    phone: string
+  }
+  comments: []
+  created_at: string
+}
+
+interface IGetPublication {
+  id: string | undefined
+}
+
 interface IPublicationResponse {
   count: number
   publications: IPublication[]
@@ -42,6 +72,7 @@ interface ICreatePublication {
 interface IStatePublication {
   createPublication: ICreatePublication
   publications: IPublicationResponse
+  viewPublication: IPublicationView | null
 }
 
 
@@ -61,7 +92,8 @@ const initialState: IStatePublication = {
   publications: {
     count: 0,
     publications: []
-  }
+  },
+  viewPublication: null
 }
 
 export const publication = createAsyncThunk('publication/',
@@ -99,6 +131,16 @@ export const getPublications = createAsyncThunk('getPublication/', async (_, {re
   }
 })
 
+export const getPublication = createAsyncThunk('getPublication/id', async ({id}: IGetPublication, {rejectWithValue}) => {
+  try{
+    const response = await api.get(`/publications/${id}`)
+    return response.data
+  } catch (err) {
+    return rejectWithValue(err)
+  }
+})
+
+
 export const slice = createSlice({
   name: 'publication',
   initialState,
@@ -116,6 +158,9 @@ export const slice = createSlice({
     })
     .addCase(getPublications.fulfilled, (state, action) => {
       state.publications = action.payload
+    })
+    .addCase(getPublication.fulfilled, (state, action) => {
+      state.viewPublication = action.payload
     })
   },
 })

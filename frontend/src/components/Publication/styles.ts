@@ -5,7 +5,7 @@ interface ISlide {
 }
 
 interface IImageUrl {
-  image_url: string;
+  image_url: string | undefined;
 }
 
 export const Container = styled.div<ISlide>`
@@ -14,8 +14,8 @@ export const Container = styled.div<ISlide>`
   position: absolute;
   margin: 1.5rem;
   top: 8%;
-  right: -28%;
-  transition: 1s all ease-in-out;
+  right: -100%;
+  transition: 500ms all ease-in-out;
   ${ props => props.slide && css`
     right: 0;
   `};
@@ -32,7 +32,6 @@ export const ContainerClosePublication = styled.div`
   display: flex;
   justify-content: right;
   align-items: center;
-  margin-bottom: 0.5rem;
 `;
 
 export const ContainerCloseIcon = styled.div`
@@ -94,10 +93,13 @@ export const TagStatus = styled.span`
 `;
 
 export const ContainerDateAuthorPublication = styled.div`
-  display: flex;
   font-size: 1.4rem;
   color: ${({ theme }) => theme.colors.publication_font};
   margin-bottom: 1rem;
+
+  & > strong {
+    font-size: 1.4rem;
+  }
 `
 
 export const ContainerPublicationDetails = styled.div`
@@ -134,7 +136,7 @@ export const ContainerDescription = styled.div`
 export const ContainerLostTime = styled.div`
   font-size: 1.3rem;
   color: ${({ theme }) => theme.colors.publication_font};
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 `
 
 export const LostTimeDays = styled.span`
@@ -154,4 +156,14 @@ export const ContainerComentariesCount = styled.div`
   font-weight: bold;
   font-size: 1.3rem;
   color: ${({ theme }) => theme.colors.publication_lost_time};
+`
+
+export const ContainerContact = styled.div`
+  font-size: 1.3rem;
+  color: ${({ theme }) => theme.colors.publication_font};
+  margin-bottom: 2rem;
+
+  & > strong {
+    font-size: 1.3rem;
+  }
 `

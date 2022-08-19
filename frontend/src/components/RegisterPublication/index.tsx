@@ -53,6 +53,9 @@ interface IFormValues {
 
 const RegisterPublication: React.FC = () => {
   const token = useSelector((state: RootState) => state.user.token);
+  const registedPublicationStatus = useSelector(
+    (state: RootState) => state.publication.createPublication.status
+  );
   const coordinates = useSelector((state: RootState) => state.map);
   const [nextStep, setNextStep] = React.useState<boolean>(false);
   const [showForm, setShowForm] = React.useState<boolean>(false);
@@ -98,6 +101,9 @@ const RegisterPublication: React.FC = () => {
     setNextStep(false);
     alert("Publicação efetuada com sucesso!");
   };
+  if (registedPublicationStatus === "succeeded") {
+    window.location.reload();
+  }
   const imageSetPreview = ({ target }: ChangeEvent<HTMLInputElement>) => {
     if (target.files && target.files.length > 0) {
       setImgPreview(target.files[0]);
@@ -134,6 +140,7 @@ const RegisterPublication: React.FC = () => {
           <ContainerField>
             <LabelField>Título</LabelField>
             <Field
+              spellCheck="false"
               {...register("title")}
               type="text"
               placeholder="Cão perdido"
@@ -188,6 +195,7 @@ const RegisterPublication: React.FC = () => {
           <ContainerField>
             <LabelField>Descrição</LabelField>
             <TextField
+              spellCheck="false"
               {...register("description")}
               placeholder="Estava passeando com meu cachorro quando um gato passou, ele o perseguiu e se perdeu próximo ao Arena das Dunas"
             />
