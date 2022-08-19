@@ -26,7 +26,7 @@ publicationsRouter.get(
 )
 
 publicationsRouter.get(
-  '/:id', isAuthenticated,
+  '/:id',
   celebrate({
     [Segments.PARAMS]: {
       id: Joi.string().uuid().required(),

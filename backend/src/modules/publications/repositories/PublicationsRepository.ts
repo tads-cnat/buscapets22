@@ -49,6 +49,7 @@ export default class PublicationRepository {
     .leftJoin('publication.user_id', 'users')
     .leftJoin('publication.comments', 'comments')
     .leftJoin('comments.user_id', 'users.id')
+    .leftJoin('publication.image_url', 'publications_images')
     .select([
       'publication.id',
       'publication.title',
@@ -63,6 +64,7 @@ export default class PublicationRepository {
     .addSelect(['users.id', 'users.name', 'users.phone'])
     /** TODO: "comments.user_id ta retornando muitas colunas" **/
     .addSelect(['comments.id', 'comments.comment', 'comments.user_id', 'comments.created_at'])
+    .addSelect(['publications_images.image_url'])
     .getOne()
 
     if (!publication) {
